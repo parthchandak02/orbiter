@@ -1,32 +1,22 @@
-# React + TypeScript + Vite
+# orbiter
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+3D celestial orrery clock. Three concentric glowing rings orbit in deep space — seconds (cyan), minutes (amber), hours (gold). A glowing sphere marks the current value on each ring. The hero time number glows at center.
 
-Currently, two official plugins are available:
+**Visual Style:** Dark — Void adapted (celestial/mechanical with warm gold accents)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**Data Source:** TimeAPI.io — live time data for Los Angeles timezone
 
-## React Compiler
+**How it works:**
+- The inner ring tracks seconds (cyan sphere orbits once per minute)
+- The middle ring tracks minutes (amber sphere orbits once per hour)
+- The outer ring tracks hours (gold sphere orbits once per 12 hours)
+- Ring colors shift subtly through the day (cool blue at midnight → warm gold at noon → amber at dusk)
+- Tap any sphere to see timezone details in the Quiet Zone panel
+- The hero number (top-left) shows live HH:MM:SS, updating every frame
+- OrbitControls let you zoom/rotate the scene on desktop and mobile
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**GitHub:** https://github.com/parthchandak02/orbiter
 
-## Expanding the Oxlint configuration
+**Live:** https://orbiter.parthchandak.info
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
-
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+**Tech:** React Three Fiber + drei. Hosted on Cloudflare Pages.
