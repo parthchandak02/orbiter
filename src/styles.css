@@ -1,0 +1,129 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0a0a0f;
+}
+
+:root {
+  --motion-fast: 160ms;
+  --motion-base: 240ms;
+  --motion-slow: 360ms;
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.orbiter-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: manipulation;
+  cursor: grab;
+}
+
+.orbiter-canvas:active {
+  cursor: grabbing;
+}
+
+#hero {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 10;
+  pointer-events: none;
+  font-family: system-ui, sans-serif;
+}
+
+#desc {
+  position: fixed;
+  bottom: 68px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  pointer-events: none;
+  font-family: system-ui, sans-serif;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  max-width: 65ch;
+  padding: 0 16px;
+}
+
+#legend {
+  position: fixed;
+  bottom: 44px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  pointer-events: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 14px;
+  font-family: system-ui, sans-serif;
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.legend-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+#stamp {
+  position: fixed;
+  bottom: 20px;
+  left: 16px;
+  z-index: 10;
+  pointer-events: none;
+  font-family: system-ui, sans-serif;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+#quietzone {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  padding: 18px 24px;
+  border-radius: 14px;
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 249, 196, 0.15);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
+  font-family: system-ui, sans-serif;
+  color: rgba(255, 255, 255, 0.6);
+  min-width: 260px;
+  max-width: min(90vw, 380px);
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
