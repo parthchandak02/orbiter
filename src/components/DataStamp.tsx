@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { formatHHMMSS, updateInterpolatedTime } from '../data/time'
+import { cityFromTimeZone, formatHHMMSS, updateInterpolatedTime } from '../data/time'
 
 export default function DataStamp() {
   const elRef = useRef<HTMLDivElement>(null)
@@ -10,7 +10,7 @@ export default function DataStamp() {
       const t = updateInterpolatedTime()
       if (elRef.current) {
         const sourceLabel = t.source === 'timeapi' ? 'TimeAPI' : 'fallback'
-        const city = 'Los Angeles'
+        const city = cityFromTimeZone(t.timeZone)
         const clock = formatHHMMSS(t.hour, t.minute, t.second)
         const ago = Math.floor(t.secondsAgo)
         elRef.current.textContent = `${sourceLabel} · ${city} · ${clock} · updated ${ago}s ago`

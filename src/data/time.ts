@@ -1,5 +1,12 @@
+export const TIME_ZONE = 'America/Los_Angeles'
+
 export const TIME_API_URL =
-  'https://timeapi.io/api/Time/current/zone?timeZone=America/Los_Angeles'
+  `https://timeapi.io/api/Time/current/zone?timeZone=${TIME_ZONE}`
+
+/** "America/Los_Angeles" -> "Los Angeles"; anything without a slash is returned as-is. */
+export function cityFromTimeZone(timeZone: string): string {
+  return timeZone.split('/').pop()?.replace(/_/g, ' ') || timeZone
+}
 
 export const COLORS = {
   bg: '#0a0a0f',
@@ -48,7 +55,7 @@ export const timeStore: {
 } = {
   fetchPerfMs: performance.now(),
   baseTotalSeconds: 0,
-  timeZone: 'America/Los_Angeles',
+  timeZone: TIME_ZONE,
   dayOfWeek: '',
   dateTime: '',
   source: 'fallback',
@@ -56,7 +63,7 @@ export const timeStore: {
     hour: 0,
     minute: 0,
     second: 0,
-    timeZone: 'America/Los_Angeles',
+    timeZone: TIME_ZONE,
     dayOfWeek: '',
     dateTime: '',
     source: 'fallback',
@@ -76,14 +83,27 @@ function partsFromTotalSeconds(total: number): { hour: number; minute: number; s
   return { hour, minute, second }
 }
 
+// Browser clock converted to the same zone the API is asked for, so the
+// fallback shows the same place the stamp and centre label name.
 function fallbackTimeData(): TimeData {
   const now = new Date()
+  const parts: Record<string, string> = {}
+  for (const p of new Intl.DateTimeFormat('en-US', {
+    timeZone: TIME_ZONE,
+    hourCycle: 'h23',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    weekday: 'long',
+  }).formatToParts(now)) {
+    parts[p.type] = p.value
+  }
   return {
-    hour: now.getHours(),
-    minute: now.getMinutes(),
-    seconds: now.getSeconds() + now.getMilliseconds() / 1000,
-    timeZone: 'local',
-    dayOfWeek: now.toLocaleDateString('en-US', { weekday: 'long' }),
+    hour: Number(parts.hour),
+    minute: Number(parts.minute),
+    seconds: Number(parts.second) + now.getMilliseconds() / 1000,
+    timeZone: TIME_ZONE,
+    dayOfWeek: parts.weekday,
     dateTime: now.toISOString(),
   }
 }

@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Text } from '@react-three/drei'
 import type { Group, Mesh } from 'three'
-import { COLORS, timeStore, updateInterpolatedTime } from '../data/time'
+import { COLORS, cityFromTimeZone, timeStore, updateInterpolatedTime } from '../data/time'
 
 interface OrbitalSystemProps {
   reducedMotion?: boolean
@@ -94,7 +94,7 @@ export default function OrbitalSystem({ reducedMotion = false, onSphereTap }: Or
     }
   })
 
-  const tzLabel = timeStore.timeZone.split('/').pop()?.replace(/_/g, ' ') ?? 'LA'
+  const tzLabel = cityFromTimeZone(timeStore.timeZone)
 
   return (
     <group>

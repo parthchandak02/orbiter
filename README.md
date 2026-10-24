@@ -45,8 +45,8 @@ camera and scroll to zoom.
 
 - The time is re-fetched every 60 seconds; between fetches it is interpolated from
   `performance.now()`.
-- If TimeAPI.io is unreachable the page falls back to the browser's own clock and the stamp in
-  the bottom-left says `fallback` instead of `TimeAPI`.
+- If TimeAPI.io is unreachable the page falls back to the browser's own clock, converted to Los
+  Angeles time, and the stamp in the bottom-left says `fallback` instead of `TimeAPI`.
 - The large `HH:MM:SS` readout in the top-left updates every frame.
 - Click any sphere for a panel with the time zone, weekday, the raw `dateTime` from the API and
   a link to the API response. It hides after four seconds.
